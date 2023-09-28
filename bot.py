@@ -37,11 +37,11 @@ def run_bot():
 
 	@client.event
 	async def on_message(message):
-        # Previene la ejecucion de la respuesta si el autor del mensaje es el mismo bot
+		# Previene la ejecucion de la respuesta si el autor del mensaje es el mismo bot
 		if message.author == client.user:
 			return
 		
-        # Solo escucha mensajes que empiezen con /e
+		# Solo escucha mensajes que empiezen con /e
 		user_message = str(message.content)
 		if not user_message.startswith(starting_command):
 			return
