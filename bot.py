@@ -69,7 +69,7 @@ def run_bot():
         if message.author == client.user:
             return
 
-        # Solo escucha mensajes que empiezen con /e
+        # Solo escucha mensajes que empiecen con /deploy
         user_message = str(message.content)
         if not user_message.startswith(starting_command):
             return
