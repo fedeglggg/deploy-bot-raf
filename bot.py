@@ -1,11 +1,20 @@
 import discord
 import local_settings
+from git_repo import get_merge_list
 
 starting_command = "/deploy"
 
 actions_msg = {
     "_online":"Yes, I'm here and available to assist you. How can I help you today?",
+    "_list_backend": get_merge_list()
 }
+
+def list_commands(commands_dict):
+    commands = "Here's the list of avalible commands:" + '\n'
+    for key in commands_dict.keys():
+        commands = commands + starting_command + str(key) + '\n'
+    
+    return commands
 
 def get_response(user_message: str) -> str:
     message = user_message.lower()
@@ -14,7 +23,10 @@ def get_response(user_message: str) -> str:
 
     if action in actions_msg:
         return actions_msg[action]
-
+    
+    if action == "_commands":
+        return list_commands(actions_msg)
+					
     return "I don't recognize that command, sorry."
 
 async def send_message(message, user_message, is_private):
