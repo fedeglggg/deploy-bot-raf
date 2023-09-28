@@ -1,7 +1,7 @@
 import git
 import local_settings
 
-mrs_to_show = 5
+mrs_to_show = 15
 
 
 def get_merge_list() -> str:

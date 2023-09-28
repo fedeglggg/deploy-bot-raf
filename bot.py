@@ -8,10 +8,19 @@ starting_command = "/deploy"
 devs = ['Fede, Mati S, Mati M, Claudio', 'Valen', 'Paula', 'Jose', 'Franco',
         'Gianluca', 'Benja', 'Rodri', 'Pablo', 'Seba']
 
+
+def get_online():
+    return "Yes, I'm here and available to assist you. How can I help you today?"
+
+
+def get_daily_host():
+    return random.choice(devs)
+
+
 actions_msg = {
-    "_online": "Yes, I'm here and available to assist you. How can I help you today?",
-    "_daily_host": random.choice(devs),
-    "_report": get_merge_list()
+    "_online": get_online,
+    "_daily_host": get_daily_host,
+    "_report": get_merge_list,
 }
 
 
@@ -30,7 +39,7 @@ def get_response(user_message: str) -> str:
     action = message[index:]
 
     if action in actions_msg:
-        return actions_msg[action]
+        return actions_msg[action]()
 
     return list_commands(actions_msg)
 
