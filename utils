@@ -1,0 +1,6 @@
+# Corre incluso despues de salir de la terminal
+nohup python main.py & 
+
+# Matar el proceso
+ps aux | grep "main.py"
+kill <PID> 
