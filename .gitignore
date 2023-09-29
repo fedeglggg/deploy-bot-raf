@@ -1,9 +1,9 @@
-local_settings.py
 env
 venv
 .env
 .venv
-__pycache__
 nohup.out
-target_commit_back.txt
-target_commit_front.txt
+__pycache__
+local_settings.py
+last_branch_frontend.txt
+last_branch_backend.txt

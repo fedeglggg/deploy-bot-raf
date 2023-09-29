@@ -1,7 +1,7 @@
 import random
 import discord
 import local_settings
-from git_repo import get_merge_list
+from git_repo import get_deploy_report
 
 starting_command = "/deploy"
 
@@ -20,7 +20,7 @@ def get_daily_host():
 actions_msg = {
     "_online": get_online,
     "_daily_host": get_daily_host,
-    "_report": get_merge_list,
+    "_report": get_deploy_report,
 }
 
 
