@@ -4,6 +4,7 @@ venv
 .venv
 nohup.out
 __pycache__
+local_utils
 local_settings.py
 last_branch_frontend.txt
 last_branch_backend.txt
