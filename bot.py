@@ -5,7 +5,7 @@ from git_repo import get_merge_list
 
 starting_command = "/deploy"
 
-devs = ['Fede, Mati S, Mati M, Claudio', 'Valen', 'Paula', 'Jose', 'Franco',
+devs = ['Fede', 'Mati S', 'Mati M', 'Claudio', 'Valen', 'Paula', 'Jose', 'Franco',
         'Gianluca', 'Benja', 'Rodri', 'Pablo', 'Seba']
 
 

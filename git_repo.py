@@ -58,7 +58,7 @@ def get_merge_list() -> str:
             '\n' + '\n'
     else:
         merge_list = merge_list + \
-            f"There are no changes from the last deploy in the frontend." + '\n' + '\n'
+            f"There are no changes from the last deploy in the backend." + '\n' + '\n'
 
     for branch in branches_back:
         merge_list = merge_list + "    " + branch + '\n'
