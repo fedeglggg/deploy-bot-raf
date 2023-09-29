@@ -5,3 +5,5 @@ venv
 .venv
 __pycache__
 nohup.out
+target_commit_back.txt
+target_commit_front.txt
