@@ -34,6 +34,7 @@ def list_commands(commands_dict):
 
 
 def get_response(user_message: str) -> str:
+    print("u", user_message)
     message = user_message.lower()
     index = message.find(starting_command) + len(starting_command)
     action = message[index:]
@@ -41,7 +42,9 @@ def get_response(user_message: str) -> str:
     if action in actions_msg:
         return actions_msg[action]()
 
-    return list_commands(actions_msg)
+    default_action = list_commands(actions_msg)
+
+    return default_action
 
 
 async def send_message(message, user_message, is_private):
@@ -77,6 +80,7 @@ def run_bot():
         username = str(message.author)
         channel = str(message.channel)
         print(f"{username} said: '{user_message}' ({channel})")
+
         await send_message(message, user_message,  is_private=False)
 
     client.run(TOKEN)
