@@ -1,8 +1,6 @@
 import git
 import local_settings
 
-MAX_COUNT = 20
-
 
 def get_last_branch(env):
     try:
@@ -56,9 +54,12 @@ def fill_report_by_env(env, branches, deploy_report=None):
     return deploy_report
 
 
-def generate_deploy_report(commits_frontend, commits_backend) -> str:
-    branches_frontend = get_merged_branches_list(commits_frontend, "frontend")
-    branches_backend = get_merged_branches_list(commits_backend, "backend")
+def generate_deploy_report(commits_frontend, commits_backend, testing=False) -> str:
+    frontend_env = "frontend" if testing == False else "testing_frontend"
+    backend_env = "backend" if testing == False else "testing_backend"
+    branches_frontend = get_merged_branches_list(
+        commits_frontend, frontend_env)
+    branches_backend = get_merged_branches_list(commits_backend, backend_env)
 
     deploy_report = fill_report_by_env("frontend", branches_frontend)
     deploy_report = fill_report_by_env(
@@ -67,15 +68,15 @@ def generate_deploy_report(commits_frontend, commits_backend) -> str:
     return deploy_report
 
 
-def get_deploy_report() -> str:
+def get_deploy_report(commits_max_count=15) -> str:
     frontend = git.Repo(local_settings.LOCAL_REPO_FRONT)
     backend = git.Repo(local_settings.LOCAL_REPO_BACK)
 
     commits_frontend = frontend.iter_commits(
-        'HEAD', max_count=MAX_COUNT, merges=True)
+        'HEAD', max_count=commits_max_count, merges=True)
 
     commits_backend = backend.iter_commits(
-        'HEAD', max_count=MAX_COUNT, merges=True)
+        'HEAD', max_count=commits_max_count, merges=True)
 
     deploy_report = generate_deploy_report(commits_frontend, commits_backend)
 
