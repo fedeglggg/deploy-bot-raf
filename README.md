@@ -32,3 +32,6 @@ Matar el proceso
 
 Para correr los tests:
 `pytest test.py`
+
+Para modificar el local_settings local de momento ignoramos los cambios
+`git update-index --assume-unchanged path/to/your/file`
