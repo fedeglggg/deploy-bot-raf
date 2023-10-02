@@ -2,11 +2,9 @@ import random
 import discord
 import local_settings
 from git_repo import get_deploy_report
+from constants import DEVELOPERS
 
 starting_command = "/deploy"
-
-devs = ['Fede', 'Mati S', 'Mati M', 'Claudio', 'Valen', 'Paula', 'Jose', 'Franco',
-        'Gianluca', 'Benja', 'Rodri', 'Pablo', 'Seba']
 
 
 def get_online():
@@ -14,7 +12,7 @@ def get_online():
 
 
 def get_daily_host():
-    return random.choice(devs)
+    return random.choice(DEVELOPERS)
 
 
 actions_msg = {
