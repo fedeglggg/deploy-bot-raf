@@ -9,3 +9,4 @@ last_branch_frontend.txt
 last_branch_backend.txt
 last_branch_testing_frontend.txt
 last_branch_testing_backend.txt
+local_settings.py
