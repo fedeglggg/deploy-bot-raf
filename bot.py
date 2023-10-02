@@ -34,7 +34,6 @@ def list_commands(commands_dict):
 
 
 def get_response(user_message: str) -> str:
-    print("u", user_message)
     message = user_message.lower()
     index = message.find(starting_command) + len(starting_command)
     action = message[index:]
