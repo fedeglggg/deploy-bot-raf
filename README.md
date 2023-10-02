@@ -1,6 +1,6 @@
 # Bot para publicar logs por discord
 
-Instalación
+## Instalación
 
 Crear ambiente virtual
 `python3 -m venv ./venv`
@@ -15,9 +15,14 @@ Correr el bot
 `python main.py`
 
 Manter el bot corriendo luego de cerrar la terminal
-`nohup python main.py &` 
+`nohup python main.py &`
 
-Matar el proceso
+## Utils
+
+Para detener el bot si usamos el nohup hay que matar el proceso.
+
+Obeter el Process ID (PID) del comando
 `ps aux | grep "main.py"`
 
+Matar el proceso
 `kill <PID>`
