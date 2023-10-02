@@ -1,7 +1,6 @@
 import git
 import local_settings
-
-MAX_COUNT = 15
+from constants import ENV
 
 
 def get_last_branch(env):
@@ -13,7 +12,7 @@ def get_last_branch(env):
     return last_branch
 
 
-def write_last_branch(env, merged_branches):
+def write_last_branch(merged_branches, env):
     if merged_branches:
         with open(f"last_branch_{env}.txt", "w") as file:
             file.write(merged_branches[0])
@@ -32,7 +31,7 @@ def get_merged_branches_list(commits, env):
         else:
             break
 
-    write_last_branch(env, merged_branches)
+    write_last_branch(merged_branches, env)
 
     return merged_branches
 
@@ -56,21 +55,30 @@ def fill_report_by_env(env, branches, deploy_report=None):
     return deploy_report
 
 
-def get_deploy_report() -> str:
+def get_branches(commits_frontend, frontend_env, commits_backend, backend_env) -> str:
 
+    branches_frontend = get_merged_branches_list(
+        commits_frontend, frontend_env)
+    branches_backend = get_merged_branches_list(commits_backend, backend_env)
+
+    return branches_frontend, branches_backend
+
+
+def get_deploy_report(commits_max_count=15) -> str:
     frontend = git.Repo(local_settings.LOCAL_REPO_FRONT)
     backend = git.Repo(local_settings.LOCAL_REPO_BACK)
 
     commits_frontend = frontend.iter_commits(
-        'HEAD', max_count=MAX_COUNT, merges=True)
-    branches_frontend = get_merged_branches_list(commits_frontend, "frontend")
+        'HEAD', max_count=commits_max_count, merges=True)
 
     commits_backend = backend.iter_commits(
-        'HEAD', max_count=MAX_COUNT, merges=True)
-    branches_backend = get_merged_branches_list(commits_backend, "backend")
+        'HEAD', max_count=commits_max_count, merges=True)
 
-    deploy_report = fill_report_by_env("frontend", branches_frontend)
+    branches_frontend, branches_backend = get_branches(
+        commits_frontend, ENV.FRONTEND, commits_backend, ENV.BACKEND)
+
+    deploy_report = fill_report_by_env(ENV.FRONTEND, branches_frontend)
     deploy_report = fill_report_by_env(
-        "backend", branches_backend, deploy_report)
+        ENV.BACKEND, branches_backend, deploy_report)
 
     return deploy_report
