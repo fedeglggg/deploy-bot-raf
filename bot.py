@@ -2,7 +2,6 @@ import random
 import discord
 import local_settings
 from git_repo import get_deploy_report
-from constants import DEVELOPERS
 
 starting_command = "/deploy"
 
@@ -12,7 +11,7 @@ def get_online():
 
 
 def get_daily_host():
-    return random.choice(DEVELOPERS)
+    return random.choice(local_settings.DEVELOPERS)
 
 
 actions_msg = {
