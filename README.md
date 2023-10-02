@@ -11,6 +11,9 @@ Activar el ambiente
 Instalar las dependencias
 `pip install -r requirements.txt`
 
+Instalar las dependencias
+`Intruducir las credenciales en el local_settings.py`
+
 Correr el bot
 `python main.py`
 
@@ -26,3 +29,6 @@ Obeter el Process ID (PID) del comando
 
 Matar el proceso
 `kill <PID>`
+
+Para correr los tests:
+`pytest test.py`
