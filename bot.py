@@ -1,7 +1,7 @@
 import random
 import discord
 import local_settings
-from git_repo import get_deploy_report
+from git_repo import get_deploy_report, get_status
 
 starting_command = "/deploy"
 
@@ -15,9 +15,10 @@ def get_daily_host():
 
 
 actions_msg = {
-    "_online": get_online,
-    "_daily_host": get_daily_host,
-    "_report": get_deploy_report,
+    "online": get_online,
+    "daily_host": get_daily_host,
+    "report": get_deploy_report,
+    "status": get_status,
 }
 
 
@@ -25,18 +26,18 @@ def list_commands(commands_dict):
     commands = "I don't recognize that command, sorry." + \
         "\n" + "Here's the list of avalible commands:" + "\n"
     for key in commands_dict.keys():
-        commands = commands + starting_command + str(key) + "\n"
+        commands = commands + starting_command + " " + str(key) + "\n"
 
     return commands
 
 
 def get_response(user_message: str) -> str:
-    message = user_message.lower()
-    index = message.find(starting_command) + len(starting_command)
-    action = message[index:]
+    command = user_message.split()
+    action = command[1] if len(command) >= 2 else None
+    params = command[2:] if len(command) >= 3 else []
 
     if action in actions_msg:
-        return actions_msg[action]()
+        return actions_msg[action](*params)
 
     default_action = list_commands(actions_msg)
 
@@ -76,7 +77,8 @@ def run_bot():
         username = str(message.author)
         channel = str(message.channel)
         print(f"{username} said: '{user_message}' ({channel})")
-
-        await send_message(message, user_message,  is_private=False)
+        
+        if user_message.startswith("/deploy"):
+            await send_message(message, user_message,  is_private=False)
 
     client.run(TOKEN)

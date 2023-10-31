@@ -82,3 +82,25 @@ def get_deploy_report(commits_max_count=15) -> str:
         ENV.BACKEND, branches_backend, deploy_report)
 
     return deploy_report
+
+def get_status(rev) -> str:
+    frontend = git.Repo(local_settings.LOCAL_REPO_FRONT)
+    backend = git.Repo(local_settings.LOCAL_REPO_BACK)  
+    found = False
+    not_found_msj = f"'{rev}' does not exist in any of the repositories."
+
+    try: 
+        # No merge true para que tome todos
+        commits_frontend = frontend.iter_commits(rev, max_count=1)
+        found = next(commits_frontend, False) # ver como evitar que rompa para sacar try except
+        
+        if not found:
+            commits_backend = backend.iter_commits(rev, max_count=1)
+            found = next(commits_backend, False)
+        
+    except git.exc.GitCommandError as e:
+        return not_found_msj
+    
+    if not found:
+        return not_found_msj
+    
