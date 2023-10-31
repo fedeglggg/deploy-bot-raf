@@ -101,6 +101,8 @@ def get_status(rev) -> str:
     except git.exc.GitCommandError as e:
         return not_found_msj
     
-    if not found:
+    if found:
+        return found.message
+    else:
         return not_found_msj
     
