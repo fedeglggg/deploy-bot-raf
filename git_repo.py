@@ -102,7 +102,7 @@ def get_status(rev) -> str:
         return not_found_msj
     
     if found:
-        return found.message
+        return "The commit does exist in the remote repo" + '\n' + '\n' + found.message
     else:
         return not_found_msj
     
