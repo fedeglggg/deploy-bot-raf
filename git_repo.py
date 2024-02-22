@@ -64,7 +64,7 @@ def get_branches(commits_frontend, frontend_env, commits_backend, backend_env) -
     return branches_frontend, branches_backend
 
 
-def get_deploy_report(commits_max_count=15) -> str:
+def get_deploy_report(message, commits_max_count=15) -> str:
     frontend = git.Repo(local_settings.LOCAL_REPO_FRONT)
     backend = git.Repo(local_settings.LOCAL_REPO_BACK)
 
@@ -83,7 +83,7 @@ def get_deploy_report(commits_max_count=15) -> str:
 
     return deploy_report
 
-def get_status(rev) -> str:
+def get_status(message, rev) -> str:
     frontend = git.Repo(local_settings.LOCAL_REPO_FRONT)
     backend = git.Repo(local_settings.LOCAL_REPO_BACK)  
     found = False
@@ -102,7 +102,7 @@ def get_status(rev) -> str:
         return not_found_msj
     
     if found:
-        return found.message
+        return "The commit does exist in the remote repo" + '\n' + '\n' + found.message
     else:
         return not_found_msj
     
